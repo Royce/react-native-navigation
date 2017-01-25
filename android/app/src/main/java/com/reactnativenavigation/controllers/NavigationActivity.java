@@ -298,6 +298,10 @@ public class NavigationActivity extends AppCompatActivity implements DefaultHard
         layout.showSlidingOverlay(params);
     }
 
+    public void hideSlidingOverlay() {
+        layout.hideSlidingOverlay();
+    }
+
     public void showSnackbar(SnackbarParams params) {
         layout.showSnackbar(params);
     }
