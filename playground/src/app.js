@@ -1,13 +1,13 @@
 // @ts-check
-const { Navigation } = require('react-native-navigation');
-const { registerScreens } = require('./screens');
-const { Platform } = require('react-native');
-const { setDefaultOptions } = require('./commons/Options')
-const testIDs = require('./testIDs');
-const Screens = require('./screens/Screens');
+const { Navigation } = require("react-native-navigation");
+const { registerScreens } = require("./screens");
+const { Platform } = require("react-native");
+const { setDefaultOptions } = require("./commons/Options");
+const testIDs = require("./testIDs");
+const Screens = require("./screens/Screens");
 
-if (Platform.OS === 'android') {
-  alert = (title) => {
+if (Platform.OS === "android") {
+  alert = title => {
     Navigation.showOverlay({
       component: {
         name: Screens.Alert,
@@ -16,7 +16,7 @@ if (Platform.OS === 'android') {
         },
         options: {
           layout: {
-            componentBackgroundColor: 'transparent'
+            componentBackgroundColor: "transparent"
           },
           overlay: {
             interceptTouchOutside: true
@@ -34,65 +34,86 @@ function start() {
 
     Navigation.setRoot({
       root: {
-        bottomTabs: {
-          children: [
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Layouts'
-                    }
-                  }
-                ],
-                options: {
-                  bottomTab: {
-                    text: 'Layouts',
-                    icon: require('../img/layouts.png'),
-                    fontSize: 10,
-                    testID: testIDs.LAYOUTS_TAB
-                  }
-                }
-              }
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Options'
-                    }
-                  }
-                ],
-                options: {
-                  topBar: {
-                    title: {
-                      text: 'Default Title'
-                    }
-                  },
-                  bottomTab: {
-                    text: 'Options',
-                    icon: require('../img/options.png'),
-                    testID: testIDs.OPTIONS_TAB
-                  }
-                }
-              }
-            },
-            {
-              stack: {
-                children: [
-                  {
-                    component: {
-                      name: 'Navigation'
-                    }
-                  }
-                ]
-              }
+        sideMenu: {
+          id: "RootLayoutId",
+          // options: {
+          //   sideMenu: {
+          //     left: { enabled: false },
+          //     right: { enabled: false }
+          //   }
+          // },
+          left: { component: { name: Screens.SideMenuLeft, id: "LEFT" } },
+          right: { component: { name: Screens.SideMenuRight, id: "RIGHT" } },
+          center: {
+            stack: {
+              children: [{ component: { name: Screens.SideMenuCenter } }]
             }
-          ]
+          }
         }
       }
     });
+
+    // Navigation.setRoot({
+    //   root: {
+    //     bottomTabs: {
+    //       children: [
+    //         {
+    //           stack: {
+    //             children: [
+    //               {
+    //                 component: {
+    //                   name: 'Layouts'
+    //                 }
+    //               }
+    //             ],
+    //             options: {
+    //               bottomTab: {
+    //                 text: 'Layouts',
+    //                 icon: require('../img/layouts.png'),
+    //                 fontSize: 10,
+    //                 testID: testIDs.LAYOUTS_TAB
+    //               }
+    //             }
+    //           }
+    //         },
+    //         {
+    //           stack: {
+    //             children: [
+    //               {
+    //                 component: {
+    //                   name: 'Options'
+    //                 }
+    //               }
+    //             ],
+    //             options: {
+    //               topBar: {
+    //                 title: {
+    //                   text: 'Default Title'
+    //                 }
+    //               },
+    //               bottomTab: {
+    //                 text: 'Options',
+    //                 icon: require('../img/options.png'),
+    //                 testID: testIDs.OPTIONS_TAB
+    //               }
+    //             }
+    //           }
+    //         },
+    //         {
+    //           stack: {
+    //             children: [
+    //               {
+    //                 component: {
+    //                   name: 'Navigation'
+    //                 }
+    //               }
+    //             ]
+    //           }
+    //         }
+    //       ]
+    //     }
+    //   }
+    // });
   });
 }
 
